@@ -16,7 +16,7 @@ main{min-height:100vh;position:relative;z-index:1}
 .ice{margin:0;font-weight:400;line-height:1.1;background:linear-gradient(180deg,#fff 0%,#cfe6ff 45%,#4da3ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 6px rgba(47,139,255,.9)) drop-shadow(0 0 22px rgba(47,139,255,.55))}
 .en{font-family:Anton,Impact,"Arial Narrow",sans-serif;font-size:clamp(34px,9vw,84px);letter-spacing:.04em;transform:skewX(-8deg)}
 .ar{font-family:Lalezar,"Segoe UI",Tahoma,sans-serif;font-size:clamp(34px,9vw,84px)}
-.form{max-width:560px;margin:0 auto;padding:8px 20px 90px;display:flex;flex-direction:column;gap:34px}
+.form{max-width:560px;margin:0 auto;padding:8px 20px 40px;display:flex;flex-direction:column;gap:34px}
 .q{display:flex;flex-direction:column;gap:14px;border:0;padding:0;margin:0;min-width:0}
 .lbl{position:relative;display:block;padding:0 0 4px;font-family:Lalezar,"Segoe UI",Tahoma,sans-serif;font-size:clamp(26px,6.5vw,38px);line-height:1.15;color:#9ad8ff;-webkit-text-stroke:1px #e6f6ff;text-shadow:0 0 10px rgba(47,139,255,.95),0 0 26px rgba(47,139,255,.5)}
 .opt{font-family:system-ui,"Segoe UI",Tahoma,sans-serif;font-size:.5em;-webkit-text-stroke:0;text-shadow:none;color:#6fb4ee}
@@ -39,6 +39,20 @@ main{min-height:100vh;position:relative;z-index:1}
 .wcard{border:0;cursor:pointer;padding:7px 14px;color:#9ad8ff;font-family:Lalezar,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.2;background:rgba(12,40,90,.6);clip-path:polygon(0 6px,6px 0,calc(100% - 6px) 0,100% 6px,100% calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,0 calc(100% - 6px));box-shadow:inset 0 0 0 1.5px #4da3ff}
 .wcard.on{background:linear-gradient(180deg,#e6f6ff,#4da3ff);color:#021430}
 .wcard:focus-visible,.pick:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.tabs{display:flex;justify-content:center;gap:10px;padding:0 16px 30px}
+.tab{border:0;cursor:pointer;padding:12px 26px;font-family:Lalezar,"Segoe UI",Tahoma,sans-serif;font-size:24px;color:#9ad8ff;background:rgba(12,40,90,.6);clip-path:polygon(0 10px,10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px));box-shadow:inset 0 0 0 1.5px #4da3ff}
+.tab[aria-selected="true"]{background:linear-gradient(180deg,#e6f6ff,#4da3ff);color:#021430}
+.tab:focus-visible,.cbtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.rules{max-width:560px;margin:0 auto;padding:8px 20px 40px;display:flex;flex-direction:column;gap:14px}
+.rules ol{list-style:none;counter-reset:r;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.rules li{counter-increment:r;display:flex;gap:14px;align-items:flex-start;padding:14px 18px;color:#e6f6ff;font-size:18px;line-height:1.7;background:rgba(12,40,90,.6);clip-path:polygon(0 10px,10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px));box-shadow:inset 0 0 0 1.5px #4da3ff}
+.rules li::before{content:counter(r);flex:none;font-family:Lalezar,"Segoe UI",Tahoma,sans-serif;font-size:26px;line-height:1.3;color:#9ad8ff;text-shadow:0 0 10px rgba(47,139,255,.95)}
+.contact{max-width:560px;margin:0 auto;padding:30px 20px 90px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
+.cbtn{display:inline-block;text-decoration:none;padding:12px 24px;font-family:Lalezar,"Segoe UI",Tahoma,sans-serif;font-size:22px;color:#9ad8ff;background:rgba(12,40,90,.6);clip-path:polygon(0 10px,10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px));box-shadow:inset 0 0 0 1.5px #4da3ff}
+.intro{position:fixed;inset:0;z-index:5;overflow-y:auto;display:flex;flex-direction:column;align-items:center;gap:18px;box-sizing:border-box;padding:calc(18px + env(safe-area-inset-top,0px)) 14px 0}
+.intro img{display:block;width:100%;max-width:560px;height:auto;flex:none;opacity:0;transition:opacity .6s}
+.intro img.on{opacity:1}
+.skip{position:sticky;bottom:calc(14px + env(safe-area-inset-bottom,0px));flex:none;min-width:200px;margin:auto 0 calc(14px + env(safe-area-inset-bottom,0px))}
 [hidden]{display:none!important}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Lalezar&display=swap">
@@ -71,11 +85,20 @@ main{min-height:100vh;position:relative;z-index:1}
 </g>
 </svg>
 </div>
-<main>
+<div class="intro" id="intro">
+<img id="introImg" alt="رسالة ترحيب من إدارة ICEX" width="1000" height="1400">
+<button type="button" class="go skip" id="skip">تخطي</button>
+</div>
+<main hidden>
 <section class="welcome">
 <h1 class="ice en" dir="ltr" lang="en">WELCOME TO ICEX</h1>
 <h2 class="ice ar">أهلاً بيك في ICEX</h2>
 </section>
+<div class="tabs" role="group" aria-label="الأقسام">
+<button type="button" class="tab" data-t="apply" aria-selected="true">التقديم</button>
+<button type="button" class="tab" data-t="rules" aria-selected="false">القوانين</button>
+</div>
+<div id="p-apply">
 <form class="form" id="f" autocomplete="off">
 <div class="q"><label class="lbl" for="name">اسمك</label><input class="in" id="name" name="name" required maxlength="60" placeholder="اكتب اسمك هنا"></div>
 <fieldset class="q"><legend class="lbl">عمرك</legend>
@@ -86,10 +109,11 @@ main{min-height:100vh;position:relative;z-index:1}
 </div>
 <input class="in" id="agenum" name="agenum" type="number" min="1" max="99" inputmode="numeric" placeholder="اكتب عمرك" hidden>
 </fieldset>
+<div class="q"><label class="lbl" for="tt">حسابك في التيك توك</label><input class="in" id="tt" name="tiktok" maxlength="80" dir="ltr" placeholder="@username"></div>
 <div class="q"><label class="lbl" for="src">عرفت العصابة منين؟ <span class="opt">(اختياري)</span></label><input class="in" id="src" name="source" maxlength="200" placeholder="تيك توك، صاحب، ..."></div>
-<div class="q"><span class="lbl">ايه السلاح اللي معاك؟</span>
+<div class="q"><span class="lbl">ايه الأسلحة اللي معاك؟ <span class="opt">(اختياري، تقدر تختار أكتر من سلاح)</span></span>
 <input type="hidden" name="weapon" id="weapon">
-<button type="button" class="in pick" id="pick" aria-expanded="false" aria-controls="wp">اضغط واختار السلاح</button>
+<button type="button" class="in pick" id="pick" aria-expanded="false" aria-controls="wp">اضغط واختار الأسلحة</button>
 <div class="wgrid" id="wp" hidden>
 <button type="button" class="wcard" data-w="SX90"><span>SX90</span></button>
 <button type="button" class="wcard" data-w="Dual Uzi"><span>Dual Uzi</span></button>
@@ -125,29 +149,124 @@ main{min-height:100vh;position:relative;z-index:1}
 <button class="go" id="go" type="submit">ابعت</button>
 <p class="msg err" id="err" hidden>الإرسال مش شغال دلوقتي، جرب تاني بعد شوية.</p>
 </form>
-<p class="msg" id="ok" hidden style="padding:0 20px 90px">وصلنا طلبك، أهلاً بيك في العصابة</p>
+<p class="msg" id="ok" hidden style="padding:0 20px 40px">وصلنا طلبك، أهلاً بيك في العصابة</p>
+</div>
+<section class="rules" id="p-rules" hidden>
+<h2 class="lbl" style="text-align:center">قوانين العصابة</h2>
+<ol>
+<li>الالتزام باحترام جميع أعضاء العصابة وعدم التسبب في خلافات داخلية.</li>
+<li>عدم الخروج من العصابة أو خيانة الأعضاء بأي شكل من الأشكال.</li>
+<li>الالتزام بالمشاركة في الأنشطة والعمليات (سرقة، شحن، مهام) عند الطلب.</li>
+<li>عدم استهداف أو الاعتداء على أعضاء العصابة بأي سبب كان.</li>
+<li>استخدام الدردشة الصوتية والنصية باحترام وتعاون دائم.</li>
+<li>عدم استغلال العصابة لمصالح شخصية أو للعب الفردي.</li>
+<li>الالتزام بالظهور باللبس الخاص بالعصابة (ICE X) داخل اللعبة.</li>
+<li>أي مخالفة لهذه القوانين تعرضك للطرد من العصابة نهائياً.</li>
+</ol>
+<p class="msg" style="margin-top:14px">معاً.. نصنع القوة</p>
+</section>
+<footer class="contact">
+<span class="lbl">التواصل معنا</span>
+<div class="chips" style="justify-content:center">
+<a class="cbtn" href="#" role="button">تيك توك</a>
+<a class="cbtn" href="#" role="button">ديسكورد</a>
+<a class="cbtn" href="#" role="button">واتساب</a>
+</div>
+</footer>
 </main>
+<script>
+(function(){
+var intro=document.getElementById('intro'),main=document.querySelector('main'),img=document.getElementById('introImg'),skip=document.getElementById('skip');
+skip.addEventListener('click',function(){intro.hidden=true;main.hidden=false;window.scrollTo(0,0);});
+var P=[
+'السلام عليكم ورحمة الله وبركاته. ❄️💎🧊',
+'في فليكس سيتي، القوة هي كلمتنا، 🏙️💪 والنظام هو قانوننا. ⚖️📜',
+'معكم دريم، الإداري لعصابة Ice X. 🧊💙',
+'هنا لا مكان للضعف، 🚫 هنا يبنى مجدنا بأيدينا. 🏗️🔥',
+'طريقنا واضح، 📍 وهدفنا هو السيطرة. 🎯🏆',
+'إذا كنت تبحث عن الحليف، 🤝 فقد وجدت المكان المناسب. 📍',
+'وإذا كنت تبحث عن التحدي، ⚔️ فاستعد للمواجهة. 🥊🔥',
+'تفضل بطرح أمرك، 💬 وبابنا مفتوح لمن يحترم كلمتنا. 🚪✨'
+];
+function rr(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+function draw(){
+try{
+var W=1000,PAD=70,FS=48,LH=Math.round(FS*1.9),GAP=Math.round(FS*.7),S=2;
+var font='400 '+FS+'px Lalezar,"Segoe UI",Tahoma,"Noto Sans Arabic","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+var c=document.createElement('canvas'),x=c.getContext('2d');
+x.font=font;x.direction='rtl';
+var maxW=W-PAD*2,rows=[];
+P.forEach(function(p,i){
+var cur='';
+p.split(' ').forEach(function(w){var t=cur?cur+' '+w:w;if(cur&&x.measureText(t).width>maxW){rows.push(cur);cur=w;}else cur=t;});
+if(cur)rows.push(cur);
+if(i<P.length-1)rows.push(null);
+});
+var H=PAD*2-Math.round((LH-FS)/2);
+rows.forEach(function(r){H+=r===null?GAP:LH;});
+c.width=W*S;c.height=H*S;
+x=c.getContext('2d');x.scale(S,S);
+var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#0a2250');g.addColorStop(1,'#020a1c');
+rr(x,4,4,W-8,H-8,36);x.fillStyle=g;x.fill();
+var s=x.createLinearGradient(0,0,0,H);s.addColorStop(0,'#e6f6ff');s.addColorStop(.5,'#4da3ff');s.addColorStop(1,'#1d6fe0');
+x.lineWidth=4;x.strokeStyle=s;x.shadowColor='rgba(47,139,255,.9)';x.shadowBlur=18;x.stroke();
+x.font=font;x.direction='rtl';x.textAlign='center';x.textBaseline='middle';
+x.fillStyle='#e6f6ff';x.shadowColor='rgba(47,139,255,.95)';x.shadowBlur=14;
+var y=PAD;
+rows.forEach(function(r){
+if(r===null){y+=GAP;return;}
+x.fillText(r,W/2,y+LH/2-Math.round((LH-FS)/2));
+y+=LH;
+});
+img.width=W;img.height=H;
+img.src=c.toDataURL('image/png');
+img.classList.add('on');
+}catch(e){}
+}
+var done=false;
+function go(){if(done)return;done=true;draw();}
+function fonts(){
+if(!document.fonts||!document.fonts.load){go();return;}
+Promise.race([document.fonts.load('48px Lalezar','السلام'),new Promise(function(r){setTimeout(r,3000)})]).then(go,go);
+}
+if(document.readyState==='complete')fonts();else window.addEventListener('load',fonts);
+setTimeout(go,5000);
+})();
+</script>
 <script>
 (function(){
 var f=document.getElementById('f'),num=document.getElementById('agenum'),go=document.getElementById('go'),err=document.getElementById('err'),ok=document.getElementById('ok');
 var pick=document.getElementById('pick'),wp=document.getElementById('wp'),wv=document.getElementById('weapon'),wo=document.getElementById('wother');
 pick.addEventListener('click',function(){var open=wp.hidden;wp.hidden=!open;pick.setAttribute('aria-expanded',String(open));});
-wp.addEventListener('click',function(e){var b=e.target.closest('.wcard');if(!b)return;
-[].forEach.call(wp.querySelectorAll('.wcard'),function(c){c.classList.toggle('on',c===b);});
-var w=b.getAttribute('data-w');
-if(w==='other'){wo.hidden=false;wo.focus();wv.value=wo.value.trim();pick.textContent='سلاح تاني';}
-else{wo.hidden=true;wv.value=w;pick.textContent=w;wp.hidden=true;pick.setAttribute('aria-expanded','false');}
-});
-wo.addEventListener('input',function(){wv.value=wo.value.trim();});
+function upd(){
+var sel=[].slice.call(wp.querySelectorAll('.wcard.on')).map(function(c){return c.getAttribute('data-w');});
+var other=sel.indexOf('other')>-1;
+sel=sel.filter(function(x){return x!=='other';});
+var ot=wo.value.trim();
+if(other&&ot)sel.push(ot);
+wo.hidden=!other;
+wv.value=sel.join('، ');
+pick.textContent=sel.length?sel.join('، '):'اضغط واختار الأسلحة';
+}
+wp.addEventListener('click',function(e){var b=e.target.closest('.wcard');if(!b)return;b.classList.toggle('on');b.setAttribute('aria-pressed',String(b.classList.contains('on')));upd();if(b.getAttribute('data-w')==='other'&&b.classList.contains('on'))wo.focus();});
+wo.addEventListener('input',upd);
+var tabs=[].slice.call(document.querySelectorAll('.tab'));
+tabs.forEach(function(t){t.addEventListener('click',function(){
+tabs.forEach(function(x){x.setAttribute('aria-selected',String(x===t));});
+var a=t.getAttribute('data-t')==='apply';
+document.getElementById('p-apply').hidden=!a;
+document.getElementById('p-rules').hidden=a;
+});});
+[].forEach.call(document.querySelectorAll('.cbtn[href="#"]'),function(a){a.addEventListener('click',function(e){e.preventDefault();});});
 f.addEventListener('change',function(e){if(e.target.name==='age'){var o=e.target.value==='other';num.hidden=!o;num.required=o;if(o)num.focus();}});
 f.addEventListener('submit',async function(e){
 e.preventDefault();err.hidden=true;go.disabled=true;
 var d=new FormData(f);
 var age=d.get('age')==='other'?String(d.get('agenum')||''):String(d.get('age')||'');
-var rec={name:String(d.get('name')||'').trim(),age:age,source:String(d.get('source')||'').trim(),weapon:String(d.get('weapon')||''),days:d.getAll('days').join('، '),at:new Date().toISOString()};
+var rec={name:String(d.get('name')||'').trim(),age:age,source:String(d.get('source')||'').trim(),tiktok:String(d.get('tiktok')||'').trim(),weapon:String(d.get('weapon')||''),days:d.getAll('days').join('، '),at:new Date().toISOString()};
 var sent=false;
 try{
-var r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'b9595bbf-a46b-4c27-a540-f4a9e669a07e',subject:'تقديم جديد في ICEX',from_name:'ICEX','الاسم':rec.name,'العمر':rec.age,'السلاح':rec.weapon,'الأيام':rec.days,'عرفت العصابة منين':rec.source})});
+var r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:'b9595bbf-a46b-4c27-a540-f4a9e669a07e',subject:'تقديم جديد في ICEX',from_name:'ICEX','الاسم':rec.name,'العمر':rec.age,'السلاح':rec.weapon,'الأيام':rec.days,'عرفت العصابة منين':rec.source,'حساب التيك توك':rec.tiktok})});
 var j=await r.json();sent=!!(j&&j.success);
 }catch(x){}
 if(!sent){try{
